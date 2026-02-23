@@ -1,23 +1,114 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>TM's blog</title>
-    </head>
-    <body>
-        <header>
-            <h1><a href="/">Thanesh's Blog</a></h1>
-        </header>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TM's Blog</title>
 
-        <article>
-            <time>published: 14.06.2014, 12:14</time>
-            <h2><a href="">My first post</a></h2>
-            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        </article>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
 
-        <article>
-            <time>published: 14.06.2014, 12:14</time>
-            <h2><a href="">My second post</a></h2>
-            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut f.</p>
-        </article>
-    </body>
+        header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header a {
+            text-decoration: none;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        article {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        article h2 {
+            margin-top: 0;
+        }
+
+        article h2 a {
+            text-decoration: none;
+            color: #2a5298;
+        }
+
+        article h2 a:hover {
+            text-decoration: underline;
+        }
+
+        time {
+            font-size: 14px;
+            color: gray;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e3c72;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><a href="/">Thanesh's Blog</a></h1>
+</header>
+
+<div class="container">
+
+    <article>
+        <time>Published: 14.06.2014, 12:14</time>
+        <h2><a href="#">My First Post</a></h2>
+        <p>
+            Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
+            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.
+        </p>
+    </article>
+
+    <article>
+        <time>Published: 14.06.2014, 12:14</time>
+        <h2><a href="#">My Second Post</a></h2>
+        <p>
+            Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+            tellus ac cursus commodo, tortor mauris condimentum nibh.
+        </p>
+    </article>
+
+</div>
+
+<footer>
+    © 2026 Thanesh Maheshwari | Built with Django
+</footer>
+
+</body>
 </html>
