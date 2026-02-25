@@ -15,7 +15,7 @@
 
         header {
             background: linear-gradient(135deg, #1e3c72, #2a5298);
-            padding: 20px 0;
+            padding: 25px 0;
             text-align: center;
         }
 
@@ -26,7 +26,7 @@
         header a {
             text-decoration: none;
             color: white;
-            font-size: 28px;
+            font-size: 30px;
             font-weight: bold;
             letter-spacing: 1px;
         }
@@ -41,7 +41,7 @@
             background: white;
             padding: 25px;
             margin-bottom: 25px;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
@@ -52,7 +52,8 @@
         }
 
         article h2 {
-            margin-top: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         article h2 a {
@@ -76,6 +77,12 @@
             color: white;
             margin-top: 40px;
         }
+
+        .no-posts {
+            text-align: center;
+            color: gray;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -86,23 +93,17 @@
 
 <div class="container">
 
-    <article>
-        <time>Published: 14.06.2014, 12:14</time>
-        <h2><a href="#">My First Post</a></h2>
-        <p>
-            Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo.
-        </p>
-    </article>
-
-    <article>
-        <time>Published: 14.06.2014, 12:14</time>
-        <h2><a href="#">My Second Post</a></h2>
-        <p>
-            Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
-            tellus ac cursus commodo, tortor mauris condimentum nibh.
-        </p>
-    </article>
+    {% if posts %}
+        {% for post in posts %}
+            <article>
+                <time>Published: {{ post.published_date }}</time>
+                <h2><a href="#">{{ post.title }}</a></h2>
+                <p>{{ post.text }}</p>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p class="no-posts">No blog posts available yet.</p>
+    {% endif %}
 
 </div>
 
