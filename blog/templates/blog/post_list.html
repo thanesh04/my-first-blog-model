@@ -1,115 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TM's Blog</title>
+{% extends 'blog/base.html' %}
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
-        }
+{% block content %}
 
-        header {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            padding: 25px 0;
-            text-align: center;
-        }
+<h2 class="mb-4">Latest Posts</h2>
 
-        header h1 {
-            margin: 0;
-        }
+{% for post in posts %}
+<div class="card p-4 mb-4 shadow-sm">
+    <small class="text-muted">
+        {{ post.published_date|date:"F d, Y" }}
+    </small>
 
-        header a {
-            text-decoration: none;
-            color: white;
-            font-size: 30px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+    <h3 class="mt-2">{{ post.title }}</h3>
 
-        .container {
-            width: 90%;
-            max-width: 800px;
-            margin: 40px auto;
-        }
+    <p>{{ post.text|truncatewords:30 }}</p>
 
-        article {
-            background: white;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'post_detail' post.pk %}" 
+           class="btn btn-primary">
+           Read More →
+        </a>
 
-        article:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        article h2 {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        article h2 a {
-            text-decoration: none;
-            color: #2a5298;
-        }
-
-        article h2 a:hover {
-            text-decoration: underline;
-        }
-
-        time {
-            font-size: 14px;
-            color: gray;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #1e3c72;
-            color: white;
-            margin-top: 40px;
-        }
-
-        .no-posts {
-            text-align: center;
-            color: gray;
-            font-style: italic;
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <h1><a href="/">Thanesh's Blog</a></h1>
-</header>
-
-<div class="container">
-
-    {% if posts %}
-        {% for post in posts %}
-            <article>
-                <time>Published: {{ post.published_date }}</time>
-                <h2><a href="#">{{ post.title }}</a></h2>
-                <p>{{ post.text }}</p>
-            </article>
-        {% endfor %}
-    {% else %}
-        <p class="no-posts">No blog posts available yet.</p>
-    {% endif %}
-
+        <a href="{% url 'like_post' post.pk %}" 
+           class="text-danger fw-bold">
+           ❤️ {{ post.likes }}
+        </a>
+    </div>
 </div>
+{% empty %}
+<p>No posts available.</p>
+{% endfor %}
 
-<footer>
-    © 2026 Thanesh Maheshwari | Built with Django
-</footer>
-
-</body>
-</html>
+{% endblock %}
