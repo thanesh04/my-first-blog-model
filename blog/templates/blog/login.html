@@ -1,0 +1,115 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<style>
+    .login-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+    }
+
+    .login-card {
+        width: 420px;
+        padding: 40px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .login-card h3 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        padding: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        box-shadow: 0 0 10px rgba(95,44,130,0.5);
+        transform: scale(1.02);
+    }
+
+    .btn-animated {
+        background: linear-gradient(135deg, #5f2c82, #49a09d);
+        border: none;
+        border-radius: 12px;
+        padding: 10px;
+        color: white;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-animated:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .register-link a {
+        color: #5f2c82;
+        font-weight: 500;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="login-wrapper">
+    <div class="login-card">
+
+        <h3>Welcome Back 👋</h3>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <input type="text" name="username" class="form-control" placeholder="Username" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+
+            <button class="btn btn-animated w-100">
+                Login
+            </button>
+        </form>
+
+        <div class="register-link">
+            New user?
+            <a href="{% url 'register' %}">Create Account</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

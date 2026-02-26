@@ -1,44 +1,159 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Thanesh Blog</title>
+    <title>BlogIT | Thanesh Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
-            background: #f4f7ff;
+            background: linear-gradient(to right, #eef2ff, #f8fbff);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .navbar {
             background: linear-gradient(135deg, #5f2c82, #49a09d);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+
+        .btn-custom {
+            background: white;
+            color: #5f2c82;
+            border-radius: 30px;
+            font-weight: 500;
+            padding: 6px 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background: #5f2c82;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            border-radius: 30px;
+            padding: 6px 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: white;
+            color: #5f2c82;
+        }
+
+        .username-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .main-container {
+            min-height: 75vh;
+        }
+
         footer {
             background: #5f2c82;
             color: white;
-            padding: 20px;
+            padding: 18px;
             text-align: center;
             margin-top: 60px;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        body {
+        background:
+            radial-gradient(at 20% 20%, #6a11cb 0%, transparent 50%),
+            radial-gradient(at 80% 30%, #2575fc 0%, transparent 50%),
+            radial-gradient(at 50% 80%, #49a09d 0%, transparent 50%),
+            #f8fbff;
         }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-dark">
-    <div class="container">
-        <a class="navbar-brand" href="/">Thanesh Blog</a>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <!-- Logo -->
+        <a class="navbar-brand" href="{% url 'post_list' %}">
+            <i class="bi bi-journal-text"></i> BlogIT
+        </a>
+
+        <!-- Right Side Buttons -->
+        <div class="d-flex gap-3 align-items-center">
+
+            {% if user.is_authenticated %}
+
+                <!-- Username -->
+                <span class="text-white username-badge">
+                    <i class="bi bi-person-circle"></i> {{ user.username }}
+                </span>
+
+                <!-- New Post Button -->
+                <a href="{% url 'post_new' %}" class="btn btn-custom btn-sm">
+                    <i class="bi bi-plus-lg"></i> New Post
+                </a>
+
+                <!-- Logout Button -->
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-logout btn-sm">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                </form>
+
+            {% else %}
+
+                <!-- Login Button -->
+                <a href="{% url 'login' %}" class="btn btn-custom btn-sm">
+                    <i class="bi bi-box-arrow-in-right"></i> Login
+                </a>
+
+                <!-- Register Button -->
+                <a href="{% url 'register' %}" class="btn btn-outline-light btn-sm rounded-pill">
+                    Register
+                </a>
+
+            {% endif %}
+
+        </div>
+
     </div>
 </nav>
 
-<div class="container mt-5">
+<!-- Main Content -->
+<div class="container mt-5 main-container">
     {% block content %}
     {% endblock %}
 </div>
 
+<!-- Footer -->
 <footer>
     © 2026 Thanesh Maheshwari | Built with Django 💜
 </footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
