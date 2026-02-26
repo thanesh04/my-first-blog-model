@@ -60,6 +60,59 @@
 
     </div>
 
+
+    <!-- ================= COMMENTS SECTION ================= -->
+
+    <div class="card mt-5 p-4 shadow-sm border-0">
+
+        <h4 class="mb-4">
+            💬 Comments ({{ comments.count }})
+        </h4>
+
+        {% for comment in comments %}
+            <div class="border rounded p-3 mb-3 bg-light">
+                <div class="d-flex justify-content-between">
+                    <strong>{{ comment.user.username }}</strong>
+                    <small class="text-muted">
+                        {{ comment.created_at|date:"M d, Y H:i" }}
+                    </small>
+                </div>
+                <p class="mt-2 mb-0">{{ comment.content|linebreaks }}</p>
+            </div>
+        {% empty %}
+            <p class="text-muted">No comments yet. Be the first to comment!</p>
+        {% endfor %}
+
+    </div>
+
+
+    <!-- ================= ADD COMMENT FORM ================= -->
+
+    <div class="card mt-4 p-4 shadow-sm border-0">
+
+        {% if user.is_authenticated %}
+            <h5>Add a Comment</h5>
+
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    Post Comment
+                </button>
+            </form>
+
+        {% else %}
+            <p>
+                You must 
+                <a href="{% url 'login' %}" class="fw-bold">
+                    login
+                </a> 
+                to post a comment.
+            </p>
+        {% endif %}
+
+    </div>
+
 </div>
 
 {% endblock %}

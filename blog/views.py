@@ -8,6 +8,8 @@ from django.contrib import messages
 from .models import Post
 from .forms import PostForm, RegisterForm
 
+from .forms import CommentForm
+
 
 # -----------------------------
 # Post List
@@ -29,7 +31,27 @@ def post_list(request):
 # -----------------------------
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    comments = post.comments.filter(active=True)
+
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.post = post
+                comment.user = request.user
+                comment.save()
+                return redirect('post_detail', pk=pk)
+        else:
+            return redirect('login')
+    else:
+        form = CommentForm()
+
+    return render(request, 'blog/post_detail.html', {
+        'post': post,
+        'comments': comments,
+        'form': form
+    })
 
 
 # -----------------------------
